@@ -52,3 +52,45 @@ actions.length === timeDelays.length
 0 <= timeDelays[i] <= 1450
 actions[i] is one of "TimeLimitedCache", "set", "get" and "count"
 First action is always "TimeLimitedCache" and must be executed immediately, with a 0-millisecond delay */
+// Solution:-
+
+var TimeLimitedCache = function () {
+  this.cache = new Map();
+};
+
+/**
+ * @param {number} key
+ * @param {number} value
+ * @param {number} duration
+ * @return {boolean}
+ */
+TimeLimitedCache.prototype.set = function (key, value, duration) {
+  const existing = this.cache.get(key);
+  const alreadyExists = existing !== undefined;
+
+  if (alreadyExists) {
+    clearTimeout(existing.timeoutId);
+  }
+
+  const timeoutId = setTimeout(() => {
+    this.cache.delete(key);
+  }, duration);
+
+  this.cache.set(key, { value, timeoutId });
+  return alreadyExists;
+};
+
+/**
+ * @param {number} key
+ * @return {number}
+ */
+TimeLimitedCache.prototype.get = function (key) {
+  return this.cache.has(key) ? this.cache.get(key).value : -1;
+};
+
+/**
+ * @return {number}
+ */
+TimeLimitedCache.prototype.count = function () {
+  return this.cache.size;
+};
