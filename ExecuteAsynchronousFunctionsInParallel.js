@@ -41,3 +41,39 @@ Constraints:
 
 functions is an array of functions that returns promises
 1 <= functions.length <= 10 */
+
+// Solution:-
+
+/**
+ * @param {Array<Function>} functions
+ * @return {Promise}
+ */
+var promiseAll = function (functions) {
+  return new Promise((resolve, reject) => {
+    const results = new Array(functions.length);
+    let completed = 0;
+    let settled = false;
+
+    for (let i = 0; i < functions.length; i++) {
+      Promise.resolve()
+        .then(() => functions[i]())
+        .then((value) => {
+          if (settled) return;
+
+          results[i] = value;
+          completed += 1;
+
+          if (completed === functions.length) {
+            settled = true;
+            resolve(results);
+          }
+        })
+        .catch((error) => {
+          if (settled) return;
+
+          settled = true;
+          reject(error);
+        });
+    }
+  });
+};
