@@ -28,3 +28,17 @@ obj is a valid JSON object or array
  
 
 Can you solve it in O(1) time? */
+
+// Solution:-
+
+/**
+ * @param {Object|Array} obj
+ * @return {boolean}
+ */
+var isEmpty = function (obj) {
+  for (const _ in obj) {
+    return false;
+  }
+
+  return true;
+};
