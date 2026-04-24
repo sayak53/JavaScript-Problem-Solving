@@ -66,3 +66,26 @@ arr1 and arr2 are valid JSON arrays
 Each object in arr1 and arr2 has a unique integer id key
 2 <= JSON.stringify(arr1).length <= 106
 2 <= JSON.stringify(arr2).length <= 106 */
+
+/**
+ * @param {Array<Object>} arr1
+ * @param {Array<Object>} arr2
+ * @return {Array<Object>}
+ */
+var join = function (arr1, arr2) {
+  const byId = new Map();
+
+  for (const obj of arr1) {
+    byId.set(obj.id, { ...obj });
+  }
+
+  for (const obj of arr2) {
+    if (byId.has(obj.id)) {
+      byId.set(obj.id, { ...byId.get(obj.id), ...obj });
+    } else {
+      byId.set(obj.id, { ...obj });
+    }
+  }
+
+  return Array.from(byId.values()).sort((a, b) => a.id - b.id);
+};
