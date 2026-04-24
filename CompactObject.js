@@ -27,3 +27,39 @@ Constraints:
 
 obj is a valid JSON object
 2 <= JSON.stringify(obj).length <= 106 */
+
+/**
+ * @param {Object|Array} obj
+ * @return {Object|Array}
+ */
+var compactObject = function (obj) {
+  if (Array.isArray(obj)) {
+    const result = [];
+
+    for (const item of obj) {
+      const compacted = compactObject(item);
+
+      if (compacted) {
+        result.push(compacted);
+      }
+    }
+
+    return result;
+  }
+
+  if (obj !== null && typeof obj === "object") {
+    const result = {};
+
+    for (const [key, value] of Object.entries(obj)) {
+      const compacted = compactObject(value);
+
+      if (compacted) {
+        result[key] = compacted;
+      }
+    }
+
+    return result;
+  }
+
+  return obj;
+};
