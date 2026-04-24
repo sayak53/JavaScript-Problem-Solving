@@ -47,3 +47,25 @@ Constraints:
 maxDepth <= 1000
 -1000 <= each number <= 1000
 0 <= n <= 1000 */
+
+/**
+ * @param {Array} arr
+ * @param {number} n
+ * @return {Array}
+ */
+var flat = function (arr, n) {
+  const result = [];
+
+  const helper = (current, depth) => {
+    for (const item of current) {
+      if (Array.isArray(item) && depth < n) {
+        helper(item, depth + 1);
+      } else {
+        result.push(item);
+      }
+    }
+  };
+
+  helper(arr, 0);
+  return result;
+};
