@@ -68,3 +68,48 @@ The EventEmitter action doesn't take any arguments.
 The emit action takes between either 1 or 2 arguments. The first argument is the name of the event we want to emit, and the 2nd argument is passed to the callback functions.
 The subscribe action takes 2 arguments, where the first one is the event name and the second is the callback function.
 The unsubscribe action takes one argument, which is the 0-indexed order of the subscription made before. */
+
+// Solution:-
+
+class EventEmitter {
+  constructor() {
+    this.events = new Map();
+  }
+
+  /**
+   * @param {string} eventName
+   * @param {Function} callback
+   * @return {Object}
+   */
+  subscribe(eventName, callback) {
+    if (!this.events.has(eventName)) {
+      this.events.set(eventName, []);
+    }
+
+    const callbacks = this.events.get(eventName);
+    callbacks.push(callback);
+
+    return {
+      unsubscribe: () => {
+        const index = callbacks.indexOf(callback);
+
+        if (index !== -1) {
+          callbacks.splice(index, 1);
+        }
+      },
+    };
+  }
+
+  /**
+   * @param {string} eventName
+   * @param {Array} args
+   * @return {Array}
+   */
+  emit(eventName, args = []) {
+    if (!this.events.has(eventName)) {
+      return [];
+    }
+
+    return this.events.get(eventName).map((callback) => callback(...args));
+  }
+}
