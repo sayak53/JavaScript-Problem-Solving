@@ -34,3 +34,28 @@ Constraints:
 0 <= nums.length <= 1000
 0 <= nums[i] <= 1000
 Note: nums is the array passed to the constructor */
+
+// Solution:-
+
+class ArrayWrapper {
+  /**
+   * @param {number[]} nums
+   */
+  constructor(nums) {
+    this.nums = nums;
+  }
+
+  /**
+   * @return {number}
+   */
+  valueOf() {
+    return this.nums.reduce((sum, num) => sum + num, 0);
+  }
+
+  /**
+   * @return {string}
+   */
+  toString() {
+    return `[${this.nums.join(",")}]`;
+  }
+}
