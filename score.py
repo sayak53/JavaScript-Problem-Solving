@@ -25,7 +25,7 @@ class Solution:
                         # take from current column
                         val += pref[prev_h][j] - pref[h][j]
 
-                    best = max(best, pref)
+                    best = max(best, val)
 
                 dp[j][h] = best
 
