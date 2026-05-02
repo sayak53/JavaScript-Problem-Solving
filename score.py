@@ -18,7 +18,6 @@ class Solution:
                     val = dp[j-1][prev_h]
 
                     if prev_h < h:
-                        # take from left column
                         val += pref[h][j-1] - pref[prev_h][j-1]
                     elif prev_h > h:
                         # take from current column
