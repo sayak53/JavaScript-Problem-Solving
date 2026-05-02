@@ -4,7 +4,6 @@ class Solution:
     def maximumScore(self, grid: List[List[int]]) -> int:
         n = len(grid)
 
-        # prefix sum per column
         pref = [[0]*n for _ in range(n+1)]
         for j in range(n):
             for i in range(n):
