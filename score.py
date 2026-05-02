@@ -20,7 +20,6 @@ class Solution:
                     if prev_h < h:
                         val += pref[h][j-1] - pref[prev_h][j-1]
                     elif prev_h > h:
-                        # take from current column
                         val += pref[prev_h][j] - pref[h][j]
 
                     best = max(best, val)
