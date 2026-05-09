@@ -15,7 +15,7 @@ class Solution:
             for h in range(n):
                 best = 0
                 for prev_h in range(n):
-                    val = dp[j][prev_h]
+                    val = dp[j+1][prev_h]
 
                     if prev_h < h:
                         val += pref[h][j-1] - pref[prev_h][j-1]
