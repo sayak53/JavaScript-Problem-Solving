@@ -24,6 +24,6 @@ class Solution:
 
                     best = max(best, val)
 
-                dp[j][h] = max
+                dp[j][h] = val
 
         return max(dp[n-1])
