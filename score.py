@@ -20,7 +20,7 @@ class Solution:
                     if prev_h < h:
                         val += pref[h][j-1] - pref[prev_h][j-1]
                     elif prev_h > h:
-                        val += pref[prev_h][j] - pref[h][j]
+                        val += pref[prev_h][j] - pref[h][j+1]
 
                     best = max(best, val)
 
